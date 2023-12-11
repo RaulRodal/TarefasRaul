@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">TarefasRaul</string>
+    <string name="attention">Atención</string>
+    <string name="back_button">Atras</string>
+    <string name="delete">Eliminar</string>
+    <string name="delete_question">Está seguro de eliminar a tarefa?</string>
+    <string name="no_item_description">Ups!\nNon hay tarefas gardadas.\nToca + para añadir.</string>
+    <string name="edit_tarefa_title">Editar tarefa</string>
+    <string name="tarefa">Tarefa</string>
+    <string name="tarefa_detail_title">Detalles da tarefa</string>
+    <string name="tarefa_entry_title">Añadir tarefa</string>
+    <string name="tarefa_name_req">Nome da tarefa*</string>
+    <string name="tarefa_price_req">Descrición da tarefa*</string>
+    <string name="no">No</string>
+    <string name="descricion">Descrición</string>
+    <string name="save_action">Gardar</string>
+    <string name="sell">Sell</string>
+    <string name="yes">Si</string>
+    <string name="required_fields">*campos requeridos</string>
+</resources>
