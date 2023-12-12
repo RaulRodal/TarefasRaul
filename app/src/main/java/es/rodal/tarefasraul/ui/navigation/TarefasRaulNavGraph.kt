@@ -12,6 +12,7 @@ import es.rodal.tarefasraul.ui.home.HomeScreen
 import es.rodal.tarefasraul.ui.tarefa.TarefaDetailsDestination
 import es.rodal.tarefasraul.ui.tarefa.TarefaDetailsScreen
 import es.rodal.tarefasraul.ui.tarefa.TarefaEditDestination
+import es.rodal.tarefasraul.ui.tarefa.TarefaEditScreen
 import es.rodal.tarefasraul.ui.tarefa.TarefaEntryDestination
 import es.rodal.tarefasraul.ui.tarefa.TarefaEntryScreen
 
@@ -46,6 +47,17 @@ fun TarefasRaulNavHost(
             TarefaDetailsScreen(
                 navigateToEditTarefa = { navHostController.navigate("${TarefaEditDestination.route}/$it") },
                 navigateBack = { navHostController.navigateUp() }
+            )
+        }
+        composable(
+            route = TarefaEditDestination.routeWithArgs,
+            arguments = listOf(navArgument(TarefaEditDestination.tarefaIdArg) {
+                type = NavType.IntType
+            })
+        ) {
+            TarefaEditScreen(
+                navigateBack = { navHostController.popBackStack() },
+                onNavigateUp = { navHostController.navigateUp() }
             )
         }
     }

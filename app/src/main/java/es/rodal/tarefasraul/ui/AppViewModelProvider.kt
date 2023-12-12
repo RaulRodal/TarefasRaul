@@ -25,6 +25,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import es.rodal.tarefasraul.TarefasRaulApplication
 import es.rodal.tarefasraul.ui.home.HomeViewModel
 import es.rodal.tarefasraul.ui.tarefa.TarefaDetailsViewModel
+import es.rodal.tarefasraul.ui.tarefa.TarefaEditViewModel
 import es.rodal.tarefasraul.ui.tarefa.TarefaEntryViewModel
 
 /**
@@ -32,27 +33,7 @@ import es.rodal.tarefasraul.ui.tarefa.TarefaEntryViewModel
  */
 object AppViewModelProvider {
     val Factory = viewModelFactory {
- /*
-        // Initializer for ItemEditViewModel
-        initializer {//creationExtras contiene el contexto de la app en ese momento
-            ItemEditViewModel(
-                inventoryApplication().container.itemsRepository,
-                this.createSavedStateHandle()
-            )
-        }
-        // Initializer for ItemEntryViewModel
-        initializer {
-            ItemEntryViewModel(inventoryApplication().container.itemsRepository)
-        }
 
-        // Initializer for ItemDetailsViewModel
-        initializer {
-            ItemDetailsViewModel(
-                inventoryApplication().container.itemsRepository,
-                this.createSavedStateHandle()
-            )
-        }
-*/
         // Initializer for HomeViewModel
         initializer {
             HomeViewModel(tarefasRaulApplication().container.tarefasRepository)
@@ -70,12 +51,20 @@ object AppViewModelProvider {
                 this.createSavedStateHandle()
             )
         }
+
+        // Initializer for TarefaEditViewModel
+        initializer {//creationExtras contiene el contexto de la app en ese momento
+            TarefaEditViewModel(
+                tarefasRaulApplication().container.tarefasRepository,
+                this.createSavedStateHandle()
+            )
+        }
     }
 }
 
 /**
  * Extension function to queries for [Application] object and returns an instance of
- * [InventoryApplication].
+ * [TarefasRaulApplication].
  */
 fun CreationExtras.tarefasRaulApplication(): TarefasRaulApplication = /////////-------------------------
     (this[AndroidViewModelFactory.APPLICATION_KEY] as TarefasRaulApplication)
