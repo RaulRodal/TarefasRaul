@@ -45,11 +45,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import es.rodal.tarefasraul.TarefasRaulTopAppBar
 import es.rodal.tarefasraul.R
@@ -85,7 +88,7 @@ fun TarefaDetailsScreen(
             )
         }, floatingActionButton = {
             FloatingActionButton(
-                onClick = { navigateToEditTarefa(0) },
+                onClick = { navigateToEditTarefa(uiState.tarefaDetails.id) }, //id para que rellene os datos da vista edit
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
 
@@ -175,6 +178,28 @@ fun TarefaDetails(
                 dimensionResource(id = R.dimen.padding_medium)
             )
         ) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = tarefa.name,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Row {
+                Text(
+                    text = stringResource(id = R.string.descricion)+":",
+                    fontSize = 12.sp
+                )
+            }
+            Row {
+                Text(text = tarefa.description)
+            }
+
+
+            /*
+
             TarefaDetailsRow(
                 labelResID = R.string.tarefa,
                 tarefaDetail = tarefa.name,
@@ -189,6 +214,8 @@ fun TarefaDetails(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
+
+             */
         }
     }
 }
@@ -233,7 +260,7 @@ fun TarefaDetailsScreenPreview() {
         TarefaDetailsBody(
             TarefaDetailsUiState(
                 outOfStock = true,
-                tarefaDetails = TarefaDetails(1, "Pen", "$100")
+                tarefaDetails = TarefaDetails(1, "Pen", "boligrafo azul asdkajsf lksdlgj knañjdgs najksd hngajsdghnja sdhflasjdf")
             ),
             onSellTarefa = {},
             onDelete = {}
