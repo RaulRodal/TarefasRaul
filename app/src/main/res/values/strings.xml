@@ -12,9 +12,12 @@
     <string name="tarefa_name_req">Nome da tarefa*</string>
     <string name="tarefa_price_req">Descrición da tarefa*</string>
     <string name="no">No</string>
-    <string name="descricion">Descrición</string>
+    <string name="description">Descrición</string>
     <string name="save_action">Gardar</string>
     <string name="sell">Sell</string>
     <string name="yes">Si</string>
     <string name="required_fields">*campos requeridos</string>
+    <string name="completed">Completada</string>
+    <string name="complete">Completar</string>
+    <string name="discomplete">Descompletar</string>
 </resources>

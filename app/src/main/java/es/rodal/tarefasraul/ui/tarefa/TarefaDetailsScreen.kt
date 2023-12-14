@@ -102,7 +102,7 @@ fun TarefaDetailsScreen(
     ) { innerPadding ->
         TarefaDetailsBody(
             tarefaDetailsUiState = uiState,
-            onSellTarefa = {  },
+            onCompletedButton = viewModel::reverseComplete,
             onDelete = {
                 viewModel.deleteTarefa()
                 navigateBack()
@@ -117,7 +117,7 @@ fun TarefaDetailsScreen(
 @Composable
 private fun TarefaDetailsBody(
     tarefaDetailsUiState: TarefaDetailsUiState,
-    onSellTarefa: () -> Unit,
+    onCompletedButton: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -132,12 +132,14 @@ private fun TarefaDetailsBody(
             modifier = Modifier.fillMaxWidth()
         )
         Button(
-            onClick = onSellTarefa,
+            onClick = onCompletedButton,
             modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.small,
-            enabled = !tarefaDetailsUiState.outOfStock
+            shape = MaterialTheme.shapes.small
         ) {
-            Text(stringResource(R.string.sell))
+            Text(
+                if (tarefaDetailsUiState.tarefaDetails.completed) stringResource(R.string.discomplete)
+                else stringResource(id = R.string.complete)
+            )
         }
         OutlinedButton(
             onClick = { deleteConfirmationRequired = true },
@@ -187,9 +189,14 @@ fun TarefaDetails(
                     fontWeight = FontWeight.Bold
                 )
             }
+            Row(modifier = modifier) {
+                Text(stringResource(R.string.completed))
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = if (tarefa.completed) "si" else "no", fontWeight = FontWeight.Bold)
+            }
             Row {
                 Text(
-                    text = stringResource(id = R.string.descricion)+":",
+                    text = stringResource(id = R.string.description)+":",
                     fontSize = 12.sp
                 )
             }
@@ -262,7 +269,7 @@ fun TarefaDetailsScreenPreview() {
                 outOfStock = true,
                 tarefaDetails = TarefaDetails(1, "Pen", "boligrafo azul asdkajsf lksdlgj knañjdgs najksd hngajsdghnja sdhflasjdf")
             ),
-            onSellTarefa = {},
+            onCompletedButton = {},
             onDelete = {}
         )
     }

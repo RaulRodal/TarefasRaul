@@ -5,9 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -30,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,10 +53,10 @@ object HomeDestination : NavigationDestination {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
+    modifier: Modifier = Modifier,
     navigateToItemEntry: () -> Unit,
     navigateToItemUpdate: (Int) -> Unit,
-    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory),
-    modifier: Modifier = Modifier
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -118,21 +120,31 @@ private fun HomeBody(
 
 @Composable
 private fun TarefasList(
-    tarefaList: List<Tarefa>, onItemClick: (Tarefa) -> Unit, modifier: Modifier = Modifier
+    tarefaList: List<Tarefa>,
+    onItemClick: (Tarefa) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
         items(items = tarefaList, key = { it.id }) { tarefa ->
-            TarefaItem(tarefa = tarefa,
-                modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.padding_small))
-                    .clickable { onItemClick(tarefa) })
+                TarefaItem(tarefa = tarefa,
+                    modifier = Modifier
+                        .padding(dimensionResource(id = R.dimen.padding_small))
+                        .clickable { onItemClick(tarefa) })
+            }
         }
     }
-}
+
+
+////
+
+
+
 
 @Composable
 private fun TarefaItem(
-    tarefa: Tarefa, modifier: Modifier = Modifier
+    tarefa: Tarefa,
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     Card(
         modifier = modifier,
@@ -143,12 +155,21 @@ private fun TarefaItem(
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
             ) {
                 Text(
                     text = tarefa.name,
                     style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    modifier = modifier.weight(4f)
                 )
+                    Checkbox(
+                        checked = tarefa.completed,
+                        onCheckedChange = { viewModel.reverseCompleted(tarefa) }
+                    )
+                
             }
             Text(
                 text = tarefa.description,

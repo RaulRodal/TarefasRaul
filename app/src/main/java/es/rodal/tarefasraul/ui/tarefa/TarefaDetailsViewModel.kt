@@ -58,6 +58,15 @@ class TarefaDetailsViewModel(
             }
     }
 
+    fun reverseComplete() {
+        viewModelScope.launch {
+            val currentTarefa = uiState.value.tarefaDetails.toTarefa()
+            tarefasRepository.updateTarefa(
+                currentTarefa.copy(completed = !currentTarefa.completed)
+            )
+        }
+    }
+
 
 
 }

@@ -22,6 +22,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import es.rodal.tarefasraul.R
 import es.rodal.tarefasraul.TarefasRaulTopAppBar
@@ -133,7 +135,6 @@ fun TarefaInputForm(
         OutlinedTextField(
             value = tarefaDetails.description,
             onValueChange = { onValueChange(tarefaDetails.copy(description = it)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             label = { Text(stringResource(R.string.tarefa_price_req)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -146,6 +147,7 @@ fun TarefaInputForm(
         if (enabled) {
             Text(
                 text = stringResource(R.string.required_fields),
+                fontSize = 12.sp,
                 modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
             )
         }

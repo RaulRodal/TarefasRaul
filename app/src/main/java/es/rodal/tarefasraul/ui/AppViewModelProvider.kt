@@ -36,7 +36,9 @@ object AppViewModelProvider {
 
         // Initializer for HomeViewModel
         initializer {
-            HomeViewModel(tarefasRaulApplication().container.tarefasRepository)
+            HomeViewModel(
+                tarefasRaulApplication().container.tarefasRepository
+            )
         }
 
         // Initializer for TarefaEntryViewModel

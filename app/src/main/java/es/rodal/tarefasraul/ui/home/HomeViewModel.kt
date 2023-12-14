@@ -20,15 +20,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import es.rodal.tarefasraul.data.Tarefa
 import es.rodal.tarefasraul.data.TarefasRepository
+import es.rodal.tarefasraul.ui.tarefa.toTarefa
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 /**
  * ViewModel to retrieve all items in the Room database.
  */
-class HomeViewModel(tarefasRepository: TarefasRepository) : ViewModel() {
+class HomeViewModel(private val tarefasRepository: TarefasRepository) : ViewModel() {
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
     }
@@ -42,6 +44,11 @@ class HomeViewModel(tarefasRepository: TarefasRepository) : ViewModel() {
                  initialValue = HomeUiState()
              )//aqui temos StateFlow<HomeUiState> que é o que queriamos
 
+    fun reverseCompleted(tarefa: Tarefa) {
+        viewModelScope.launch {
+            tarefasRepository.updateTarefa(tarefa.copy(completed = !tarefa.completed))
+        }
+    }
 
 }
 
