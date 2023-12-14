@@ -50,6 +50,11 @@ class HomeViewModel(private val tarefasRepository: TarefasRepository) : ViewMode
         }
     }
 
+    fun deleteTarefa(tarefa: Tarefa) {
+        viewModelScope.launch {
+            tarefasRepository.deleteTarefa(tarefa = tarefa)
+        }
+    }
 }
 
 /**
