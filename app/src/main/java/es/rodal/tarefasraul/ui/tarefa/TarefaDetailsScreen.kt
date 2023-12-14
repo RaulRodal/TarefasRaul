@@ -17,6 +17,7 @@
 package es.rodal.tarefasraul.ui.tarefa
 
 import androidx.annotation.StringRes
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -165,10 +166,14 @@ private fun TarefaDetailsBody(
 fun TarefaDetails(
     tarefa: Tarefa, modifier: Modifier = Modifier
 ) {
+    val color by animateColorAsState(//color cambiante dependiendo de expanded
+        targetValue = if (tarefa.completed) MaterialTheme.colorScheme.primaryContainer
+        else MaterialTheme.colorScheme.errorContainer, label = "color"
+    )
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            containerColor = color,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
         )
     ) {

@@ -277,7 +277,6 @@ private fun TarefaItem(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(100.dp)
             ) {
                 Text(
                     text = tarefa.name,
