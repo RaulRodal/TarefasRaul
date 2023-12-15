@@ -12,22 +12,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.DismissDirection
 import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -100,6 +97,7 @@ fun HomeScreen(
             FloatingActionButton(
                 onClick = navigateToItemEntry,
                 shape = MaterialTheme.shapes.medium,
+                containerColor = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
             ) {
                 Icon(
@@ -162,9 +160,11 @@ private fun TarefasList(
 
             val dismissState = rememberDismissState(
                 initialValue = DismissValue.Default,
-
                 positionalThreshold = { swipeActivationFloat -> swipeActivationFloat / 3 }
             )
+            // icono para mostrar en el background del swipe right
+            val iconCheck = if (tarefa.completed) Icons.Default.Close else Icons.Default.Check
+
             SwipeToDismiss(
                 modifier = Modifier.animateItemPlacement(),
                 state = dismissState,
@@ -175,6 +175,13 @@ private fun TarefasList(
                             DismissValue.DismissedToEnd -> MaterialTheme.colorScheme.secondaryContainer
                             else -> Color.Transparent
                         }, label = "color background dismiss"
+                    )
+                    val colorIcon by animateColorAsState(
+                        when (dismissState.targetValue) {
+                            DismissValue.DismissedToStart -> MaterialTheme.colorScheme.onError
+                            DismissValue.DismissedToEnd -> MaterialTheme.colorScheme.onSecondaryContainer
+                            else -> Color.Transparent
+                        }, label = "color Icon dismiss"
                     )
                     Box(
                         modifier = Modifier
@@ -191,7 +198,8 @@ private fun TarefasList(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Refresh,
-                                    contentDescription = "Refresh"
+                                    contentDescription = "Refresh",
+                                    tint = colorIcon
                                 )
                             }
                             Spacer(modifier = Modifier.weight(1f))
@@ -205,7 +213,8 @@ private fun TarefasList(
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Delete,
-                                        contentDescription = "Delete"
+                                        contentDescription = "Delete",
+                                        tint = colorIcon
                                     )
                                 }
                             if (dismissState.targetValue == DismissValue.DismissedToEnd)
@@ -217,7 +226,7 @@ private fun TarefasList(
                                     }
                                 ) {
                                     Icon(
-                                        imageVector = Icons.Default.Check,
+                                        imageVector = iconCheck,
                                         contentDescription = "Complete"
                                     )
                                 }

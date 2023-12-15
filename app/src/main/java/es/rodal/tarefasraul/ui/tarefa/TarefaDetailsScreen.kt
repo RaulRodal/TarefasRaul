@@ -16,7 +16,6 @@
 
 package es.rodal.tarefasraul.ui.tarefa
 
-import androidx.annotation.StringRes
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -46,12 +45,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -72,10 +69,10 @@ object TarefaDetailsDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TarefaDetailsScreen(
+    modifier: Modifier = Modifier,
     navigateToEditTarefa: (Int) -> Unit,
     navigateBack: () -> Unit,
-    viewModel: TarefaDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory),
-    modifier: Modifier = Modifier
+    viewModel: TarefaDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
@@ -91,6 +88,7 @@ fun TarefaDetailsScreen(
             FloatingActionButton(
                 onClick = { navigateToEditTarefa(uiState.tarefaDetails.id) }, //id para que rellene os datos da vista edit
                 shape = MaterialTheme.shapes.medium,
+                containerColor = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
 
             ) {
@@ -209,37 +207,7 @@ fun TarefaDetails(
                 Text(text = tarefa.description)
             }
 
-
-            /*
-
-            TarefaDetailsRow(
-                labelResID = R.string.tarefa,
-                tarefaDetail = tarefa.name,
-                modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.padding_medium)
-                )
-            )
-            TarefaDetailsRow(
-                labelResID = R.string.descricion,
-                tarefaDetail = tarefa.description,
-                modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.padding_medium)
-                )
-            )
-
-             */
         }
-    }
-}
-
-@Composable
-private fun TarefaDetailsRow(
-    @StringRes labelResID: Int, tarefaDetail: String, modifier: Modifier = Modifier
-) {
-    Row(modifier = modifier) {
-        Text(stringResource(labelResID))
-        Spacer(modifier = Modifier.weight(1f))
-        Text(text = tarefaDetail, fontWeight = FontWeight.Bold)
     }
 }
 
