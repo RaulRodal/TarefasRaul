@@ -108,7 +108,7 @@ fun HomeScreen(
             }
         }) { innerPadding ->
         HomeBody(
-            tarefaList = homeUiState.tarefaList, //Pestaña App Insprection abajo para añadir valores a la BBDD
+            tarefaList = homeUiState.tarefaList,
             onItemClick = navigateToItemUpdate,
             modifier = Modifier
                 .padding(innerPadding)
