@@ -16,6 +16,7 @@
 
 package es.rodal.tarefasraul.ui.tarefa
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -120,6 +121,7 @@ private fun TarefaDetailsBody(
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
     Column(
         modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
@@ -164,6 +166,12 @@ private fun TarefaDetailsBody(
 fun TarefaDetails(
     tarefa: Tarefa, modifier: Modifier = Modifier
 ) {
+
+    val color by animateColorAsState(//color para texto de completed dependiendo de si esta completada o no
+        targetValue = if (tarefa.completed) MaterialTheme.colorScheme.primary
+        else MaterialTheme.colorScheme.error, label = "color"
+    )
+
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
@@ -190,7 +198,12 @@ fun TarefaDetails(
                 )
             }
             Row(modifier = modifier) {
-                Text(text = if (tarefa.completed) stringResource(R.string.completed) else stringResource(R.string.noCompleted), fontWeight = FontWeight.Bold)
+                Text(
+                    text = if (tarefa.completed) stringResource(R.string.completed) else stringResource(R.string.noCompleted),
+                    color = color,
+                    fontWeight = FontWeight.Bold
+
+                )
             }
             Row {
                 Text(
