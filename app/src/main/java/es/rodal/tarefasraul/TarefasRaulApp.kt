@@ -54,7 +54,8 @@ fun TarefasRaulTopAppBar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back_button)
+                        contentDescription = stringResource(R.string.back_button),
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             }
