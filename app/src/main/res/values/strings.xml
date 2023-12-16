@@ -17,6 +17,7 @@
     <string name="yes">Si</string>
     <string name="required_fields">*campos requeridos</string>
     <string name="completed">Completada</string>
+    <string name="noCompleted">Non completada</string>
     <string name="complete">Completar</string>
     <string name="discomplete">Descompletar</string>
 </resources>

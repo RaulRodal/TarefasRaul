@@ -2,6 +2,7 @@ package es.rodal.tarefasraul.ui.home
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -156,13 +157,14 @@ private fun TarefasList(
         modifier = modifier,
         state = rememberLazyListState()
     ) {
-        items(items = tarefaList, key = { it.id }) { tarefa ->
+        // sortedBy para que aparezan primeiro as que non estan completed
+        items(items = tarefaList.sortedBy { it.completed }, key = { it.id }) { tarefa ->
 
             val dismissState = rememberDismissState(
                 initialValue = DismissValue.Default,
                 positionalThreshold = { swipeActivationFloat -> swipeActivationFloat / 3 }
             )
-            // icono para mostrar en el background del swipe right
+            // icono para mostrar en el background del dismiss to end
             val iconCheck = if (tarefa.completed) Icons.Default.Close else Icons.Default.Check
 
             SwipeToDismiss(
@@ -239,6 +241,7 @@ private fun TarefasList(
                         modifier = Modifier
                             .padding(dimensionResource(id = R.dimen.padding_small))
                             .clickable { onItemClick(tarefa) })
+
                 })
             if (deleteConfirmationRequired) {
                 DeleteConfirmationDialog(
@@ -270,14 +273,19 @@ private fun TarefaItem(
         targetValue = if (tarefa.completed) MaterialTheme.colorScheme.primaryContainer
         else MaterialTheme.colorScheme.errorContainer, label = "color"
     )
+    val borderColor by animateColorAsState(//color cambiante dependiendo de expanded
+        targetValue = if (tarefa.completed) MaterialTheme.colorScheme.onPrimaryContainer
+        else MaterialTheme.colorScheme.onErrorContainer, label = "color"
+    )
 
     Card(
         modifier = modifier,
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
         colors = CardDefaults.cardColors(
             containerColor = color,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-        )
+        ),
+        border = BorderStroke(1.dp, borderColor)
     ) {
         Column(
             modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),

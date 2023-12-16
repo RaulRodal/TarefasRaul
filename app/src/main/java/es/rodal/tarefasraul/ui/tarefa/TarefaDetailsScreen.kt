@@ -16,11 +16,10 @@
 
 package es.rodal.tarefasraul.ui.tarefa
 
-import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -50,6 +49,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import es.rodal.tarefasraul.TarefasRaulTopAppBar
@@ -164,16 +164,13 @@ private fun TarefaDetailsBody(
 fun TarefaDetails(
     tarefa: Tarefa, modifier: Modifier = Modifier
 ) {
-    val color by animateColorAsState(//color cambiante dependiendo de expanded
-        targetValue = if (tarefa.completed) MaterialTheme.colorScheme.primaryContainer
-        else MaterialTheme.colorScheme.errorContainer, label = "color"
-    )
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = color,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-        )
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        ),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurfaceVariant)
     ) {
         Column(
             modifier = Modifier
@@ -193,9 +190,7 @@ fun TarefaDetails(
                 )
             }
             Row(modifier = modifier) {
-                Text(stringResource(R.string.completed))
-                Spacer(modifier = Modifier.weight(1f))
-                Text(text = if (tarefa.completed) "si" else "no", fontWeight = FontWeight.Bold)
+                Text(text = if (tarefa.completed) stringResource(R.string.completed) else stringResource(R.string.noCompleted), fontWeight = FontWeight.Bold)
             }
             Row {
                 Text(

@@ -21,9 +21,9 @@ import androidx.compose.ui.unit.dp
 
 val Shapes = Shapes(
 
-    extraSmall = CutCornerShape(topEnd = 8.dp, bottomStart = 8.dp),
-    small = CutCornerShape(8.dp),
-    medium = CutCornerShape(16.dp),
-    large = CutCornerShape(topEnd = 16.dp, bottomStart = 16.dp),
-    extraLarge = CutCornerShape(topEnd = 16.dp, bottomStart = 16.dp)
+    extraSmall = CutCornerShape(topStart = 8.dp, bottomEnd = 8.dp),
+    small = CutCornerShape(topStart = 8.dp, bottomEnd = 8.dp),
+    medium = CutCornerShape(topStart = 16.dp, bottomEnd = 16.dp),
+    large = CutCornerShape(topStart = 16.dp, bottomEnd = 16.dp),
+    extraLarge = CutCornerShape(topStart = 16.dp, bottomEnd = 16.dp)
 )
