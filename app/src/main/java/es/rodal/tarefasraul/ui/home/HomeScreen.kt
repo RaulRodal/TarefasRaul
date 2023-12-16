@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -46,7 +47,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
@@ -187,10 +187,11 @@ private fun TarefasList(
                     )
                     Box(
                         modifier = Modifier
-                            .fillMaxSize()
+                            .fillMaxWidth()
                             .background(color)
                             .padding(dimensionResource(id = R.dimen.padding_small))
-                            .clip(MaterialTheme.shapes.extraLarge),
+                            .height(170.dp)
+                            .align(Alignment.CenterVertically),
                         contentAlignment = Alignment.Center
                     ) {
                         Row {
@@ -320,9 +321,6 @@ private fun TarefaItem(
 @Composable
 fun HomePreview() {
     TarefasRaulTheme {
-        TarefaItem(
-            tarefa =
-            Tarefa(1, "Game", "100.0")
-        )
+        HomeBody(tarefaList = listOf(Tarefa(1, "Game", "100.0"), Tarefa(2, "Game", "100.0")), onItemClick = {})
     }
 }
